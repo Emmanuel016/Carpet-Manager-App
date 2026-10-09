@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Customer Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-wrapper {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(340px, 430px);
+            align-items: center;
+            gap: 28px;
+            min-height: 82vh;
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .welcome-panel {
+            position: relative;
+            overflow: hidden;
+            padding: 38px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e1b4b;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-kicker {
+            color: #6366f1;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .welcome-panel h1 {
+            color: #1e1b4b;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(34px, 6vw, 62px);
+            line-height: 1.1;
+            margin: 0 0 18px;
+            font-weight: 700;
+        }
+
+        .welcome-copy {
+            color: #475569;
+            font-size: 16px;
+            line-height: 1.65;
+            max-width: 680px;
+            margin-bottom: 24px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .feature-pill {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 13px;
+            border-radius: 14px;
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+        }
+
+        .feature-pill i {
+            color: #6366f1;
+            margin-top: 3px;
+        }
+
+        .feature-pill strong {
+            display: block;
+            color: #1e1b4b;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .feature-pill span {
+            display: block;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.35;
+        }
+
+        .terminal-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            animation: terminalEntrance 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes terminalEntrance {
+            from { opacity: 0; transform: scale(0.8) translateY(40px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .terminal-card h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .auth-status {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: #a5b4fc;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .field-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .field-container i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            color: #6366f1;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #6366f1;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn-auth {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.8);
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+        }
+
+        .auth-footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .auth-footer a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+
+
+        .error-msg {
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(248, 113, 113, 0.2);
+        }
+
+        @media (max-width: 900px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+                width: min(640px, calc(100% - 24px));
+                padding: 24px 0;
+            }
+
+            .welcome-panel {
+                padding: 28px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .terminal-card {
+                padding: 30px 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <section class="welcome-panel" aria-label="Welcome message">
+            <div class="welcome-kicker">Welcome to Customer Manager</div>
+            <h1>Your carpet business command center.</h1>
+            <p class="welcome-copy">
+                Manage your customers, track quotes, and organize your carpet installation business
+                in one secure workspace. Access customer details, calculate costs, and generate
+                professional quotes with ease.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-pill">
+                    <i class="fa-solid fa-users"></i>
+                    <div><strong>Customer management</strong><span>Store and organize all customer details in one place.</span></div>
+                </div>
+                <div class="feature-pill">
+                    <i class="fa-solid fa-calculator"></i>
+                    <div><strong>Quote calculator</strong><span>Calculate carpet costs, labour, and underlay automatically.</span></div>
+                </div>
+                <div class="feature-pill">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <div><strong>Cost tracking</strong><span>Track material costs, labour rates, and total expenses.</span></div>
+                </div>
+                <div class="feature-pill">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <div><strong>Secure data</strong><span>Your business data is protected with encryption.</span></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="terminal-card">
+            <h2>Sign In</h2>
+
+            <form method="POST" action="/login">
+                <div class="field-container">
+                    <i class="fa-solid fa-user-secret"></i>
+                    <input name="username" placeholder="Username" required autocomplete="username">
+                </div>
+                
+                <div class="field-container">
+                    <i class="fa-solid fa-key"></i>
+                    <input name="password" type="password" placeholder="Password" required autocomplete="current-password">
+                </div>
+
+                {% if error %}
+                    <div class="error-msg"><i class="fa-solid fa-triangle-exclamation"></i> {{ error }}</div>
+                {% endif %}
+
+                <button type="submit" class="btn-auth">
+                    Login
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                New here? <a href="/register">Create your account</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

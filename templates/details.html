@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details - Customer Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .navbar-brand span {
+            color: #6366f1;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #6366f1;
+        }
+
+        .nav-link.active {
+            color: #6366f1;
+        }
+
+        .logout-btn {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            color: #f87171;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(248, 113, 113, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .customer-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 30px;
+        }
+
+        .customer-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .customer-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .customer-info h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .customer-info p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .detail-item label {
+            display: block;
+            color: #94a3b8;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .detail-item p {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .quotes-section {
+            margin-top: 30px;
+        }
+
+        .quotes-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .quotes-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .quote-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quote-info h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .quote-info p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .quote-status {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .quote-status.pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .quote-status.completed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .error-msg {
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            text-align: center;
+        }
+
+        .no-quotes {
+            color: #94a3b8;
+            font-size: 14px;
+            text-align: center;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            Customer<span>Manager</span>
+        </div>
+        <div class="navbar-links">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <a href="/details" class="nav-link active">Customers</a>
+            <a href="/settings" class="nav-link">Settings</a>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if error %}
+            <div class="error-msg">
+                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+            </div>
+        {% else %}
+            <div class="page-header">
+                <h1>Customer Details</h1>
+                <a href="/dashboard" class="back-btn">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+
+            <div class="customer-card">
+                <div class="customer-header">
+                    <div class="customer-avatar">
+                        {{ customer.first[0] }}{{ customer.second[0] }}
+                    </div>
+                    <div class="customer-info">
+                        <h2>{{ customer.first }} {{ customer.second }}</h2>
+                        <p>Customer ID: #{{ customer.id }}</p>
+                    </div>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <label>First Name</label>
+                        <p>{{ customer.first }}</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Last Name</label>
+                        <p>{{ customer.second }}</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Town</label>
+                        <p>{{ customer.town }}</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Phone Number</label>
+                        <p>{{ customer.no }}</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Date Added</label>
+                        <p>{{ customer.date_added.strftime('%Y-%m-%d') if customer.date_added else 'N/A' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quotes-section">
+                <h3>Customer Quotes</h3>
+                {% if customer.quotes %}
+                    <div class="quotes-list">
+                        {% for quote in customer.quotes %}
+                            <div class="quote-item">
+                                <div class="quote-info">
+                                    <h4>Quote #{{ quote.quote_number }}</h4>
+                                    <p>{{ quote.room_size if quote.room_size else 'N/A' }} | {{ quote.cost if quote.cost else 'N/A' }}</p>
+                                </div>
+                                <span class="quote-status {{ 'completed' if quote.status == 'completed' else 'pending' }}">
+                                    {{ quote.status|capitalize }}
+                                </span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="no-quotes">
+                        <i class="fa-solid fa-file-invoice"></i>
+                        <p>No quotes found for this customer</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
